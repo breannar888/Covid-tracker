@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import useFetch from "./useFetch";
 
 function App() {
+  const { data, loading, error } = useFetch(
+    "https://api.covidtracking.com/v1/states/info.json"
+  );
+
+  if (loading) return <h1>loading...</h1>;
+
+  if (error) console.log(error);
+
+  if(data) return <div>data loaded</div>
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Covid Tracker
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React pls
-        </a>
+    <div>
+      <header>
+        <p>Covid Tracker - no data</p>
       </header>
+      
     </div>
   );
 }
