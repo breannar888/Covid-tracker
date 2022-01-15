@@ -1,23 +1,26 @@
-import useFetch from "./useFetch";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
-  const { data, loading, error } = useFetch(
-    "https://api.covidtracking.com/v1/states/info.json"
-  );
+  const url = "https://api.covidtracking.com/v1/states/info.json";
+  const [country, setCountry] = useState(null);
+  useEffect(() => {
+    axios.get(url).then((response) => {
+      setCountry(response.data);
+    });
+  }, [url]);
+  console.log(country);
 
-  if (loading) return <h1>loading...</h1>;
-
-  if (error) console.log(error);
-
-  if(data) return <div>data loaded</div>
-  return (
-    <div>
-      <header>
-        <p>Covid Tracker - no data</p>
-      </header>
-      
-    </div>
-  );
+  if (country) {
+    return (
+      <div>
+        {country.map((countries) => (
+          <h3>State: {countries.name}</h3>
+        ))}
+      </div>
+    );
+  }
+  return <div>no data</div>;
 }
 
 export default App;
