@@ -1,26 +1,28 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import MapChart from "./components/Map";
 
 function App() {
-  const url = "https://api.covidtracking.com/v1/states/info.json";
+  const url = "https://api.covid19api.com/summary";
   const [country, setCountry] = useState(null);
   useEffect(() => {
     axios.get(url).then((response) => {
       setCountry(response.data);
     });
   }, [url]);
-  console.log(country);
+  console.log("countries:", country);
 
   if (country) {
     return (
       <div>
-        {country.map((countries) => (
-          <h3>State: {countries.name}</h3>
+        <MapChart />
+        {country.Countries.map((countries) => (
+          <div key={countries.ID}>{countries.Country}</div>
         ))}
       </div>
     );
   }
-  return <div>no data</div>;
+  return <div>loading...</div>;
 }
 
 export default App;
