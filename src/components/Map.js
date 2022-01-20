@@ -1,55 +1,105 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { scaleLinear } from "d3-scale";
 import {
   ComposableMap,
   Geographies,
   Geography,
-  ZoomableGroup,
+  Sphere,
+  Graticule,
 } from "react-simple-maps";
-import { csv } from "d3-fetch";
-import axios from "axios";
-import { scaleLinear } from "d3-scale";
-import { useState, useEffect } from "react";
 
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
 const colorScale = scaleLinear()
-  .domain([0.29, 0.68])
+  .domain([0, 100000])
   .range(["#ffedea", "#ff5233"]);
 
 const MapChart = () => {
-  const coviddata =
-    "https://covid.ourworldindata.org/data/latest/owid-covid-latest.csv";
-  const [data, setData] = useState([]);
-
+  const url = "https://corona.lmao.ninja/v2/countries?yesterday&sort";
+  const [country, setCountry] = useState(null);
   useEffect(() => {
-    axios.get(coviddata).then((response) => {
-      setData(response.data);
+    axios.get(url).then((response) => {
+      setCountry(response.data);
     });
-  }, [coviddata]);
-  console.log("coviddata", data);
-
-  return <div></div>;
-};
-
-export default MapChart;
-/*
-<ComposableMap>
-        <ZoomableGroup zoom={1}>
+  }, [url]);
+  console.log("countries:", country);
+  if (country) {
+    return (
+      <ComposableMap
+        projectionConfig={{
+          rotate: [-10, 0, 0],
+          scale: 130,
+        }}
+      >
+        <Sphere stroke="#E4E5E6" strokeWidth={0.5} />
+        <Graticule stroke="#E4E5E6" strokeWidth={0.5} />
+        {country.length > 0 && (
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map((geo) => {
-                const d = data.find((s) => s.ISO3 === geo.properties.ISO_A3);
+                const d = country.find((s) => s.country === geo.properties.NAME);
                 return (
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    fill={d ? colorScale(d["2017"]) : "#986bc2"}
+                    fill={d ? colorScale(d["cases"]) : "#F5F4F6"}
                   />
                 );
               })
             }
           </Geographies>
-        </ZoomableGroup>
+        )}
       </ComposableMap>
+    );
+  }
+  return <div>loading...</div>;
+};
+
+export default MapChart;
+
+/*
+const MapChart = () => {
+  const url = "https://corona.lmao.ninja/v2/countries?yesterday&sort";
+  const [country, setCountry] = useState(null);
+  useEffect(() => {
+    axios.get(url).then((response) => {
+      setCountry(response.data);
+    });
+  }, [url]);
+  console.log("countries:", country);
+  if (country) {
+    return (
+      <ComposableMap
+        projectionConfig={{
+          rotate: [-10, 0, 0],
+          scale: 130,
+        }}
+      >
+        <Sphere stroke="#E4E5E6" strokeWidth={0.5} />
+        <Graticule stroke="#E4E5E6" strokeWidth={0.5} />
+        {country.length > 0 && (
+          <Geographies geography={geoUrl}>
+            {({ geographies }) =>
+              geographies.map((geo) => {
+                const d = country.find(
+                  (s) => s.cases === geo.properties.country
+                );
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    fill={d ? colorScale(d["2017"]) : "#F5F4F6"}
+                  />
+                );
+              })
+            }
+          </Geographies>
+        )}
+      </ComposableMap>
+    );
+  }
+  return <div>loading...</div>;
+};
 */
