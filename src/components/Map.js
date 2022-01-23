@@ -7,99 +7,78 @@ import {
   Geography,
   Sphere,
   Graticule,
+  ZoomableGroup,
 } from "react-simple-maps";
+import { memo } from "react";
+import "../scss/home.css";
 
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
 const colorScale = scaleLinear()
-  .domain([0, 100000])
-  .range(["#ffedea", "#ff5233"]);
-
-const MapChart = () => {
+  .domain([10000, 2000000])
+  .range(["#ffeedb", "#ff8800"]);
+const MapChart = ({ setToolTipContent }) => {
   const url = "https://corona.lmao.ninja/v2/countries?yesterday&sort";
   const [country, setCountry] = useState(null);
+  console.log(country);
   useEffect(() => {
     axios.get(url).then((response) => {
       setCountry(response.data);
     });
   }, [url]);
-  console.log("countries:", country);
+
   if (country) {
     return (
-      <ComposableMap
-        projectionConfig={{
-          rotate: [-10, 0, 0],
-          scale: 130,
-        }}
-      >
-        <Sphere stroke="#E4E5E6" strokeWidth={0.5} />
-        <Graticule stroke="#E4E5E6" strokeWidth={0.5} />
-        {country.length > 0 && (
-          <Geographies geography={geoUrl}>
-            {({ geographies }) =>
-              geographies.map((geo) => {
-                const d = country.find((s) => s.country === geo.properties.NAME);
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={d ? colorScale(d["cases"]) : "#F5F4F6"}
-                  />
-                );
-              })
-            }
-          </Geographies>
-        )}
-      </ComposableMap>
+      <>
+        <ComposableMap
+          data-tip=""
+          projectionConfig={{
+            rotate: [-10, 0, 0],
+            scale: 137,
+          }}
+        >
+          <ZoomableGroup>
+            <Sphere stroke="#E4E5E6" strokeWidth={0.5} />
+            <Graticule stroke="#E4E5E6" strokeWidth={0.5} />
+            {country.length > 0 && (
+              <Geographies geography={geoUrl}>
+                {({ geographies }) =>
+                  geographies.map((geo) => {
+                    const d = country.find(
+                      (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
+                    );
+                   
+                    return (
+                      <Geography
+                        key={geo.rsmKey}
+                        geography={geo}
+                        fill={d ? colorScale(d["cases"]) : "#F5F4F6"}
+                        onMouseEnter={() => {
+                          const { NAME } = geo.properties;
+                          setToolTipContent(`${NAME} - Cases ${d.cases}`);
+                        }}
+                        onMouseLeave={() => {
+                          setToolTipContent("");
+                        }}
+                      />
+                    );
+                  })
+                }
+              </Geographies>
+            )}
+          </ZoomableGroup>
+        </ComposableMap>
+      </>
     );
   }
-  return <div>loading...</div>;
+  return <span>loading...</span>;
 };
 
-export default MapChart;
-
+export default memo(MapChart);
 /*
-const MapChart = () => {
-  const url = "https://corona.lmao.ninja/v2/countries?yesterday&sort";
-  const [country, setCountry] = useState(null);
-  useEffect(() => {
-    axios.get(url).then((response) => {
-      setCountry(response.data);
-    });
-  }, [url]);
-  console.log("countries:", country);
-  if (country) {
-    return (
-      <ComposableMap
-        projectionConfig={{
-          rotate: [-10, 0, 0],
-          scale: 130,
-        }}
-      >
-        <Sphere stroke="#E4E5E6" strokeWidth={0.5} />
-        <Graticule stroke="#E4E5E6" strokeWidth={0.5} />
-        {country.length > 0 && (
-          <Geographies geography={geoUrl}>
-            {({ geographies }) =>
-              geographies.map((geo) => {
-                const d = country.find(
-                  (s) => s.cases === geo.properties.country
-                );
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={d ? colorScale(d["2017"]) : "#F5F4F6"}
-                  />
-                );
-              })
-            }
-          </Geographies>
-        )}
-      </ComposableMap>
-    );
-  }
-  return <div>loading...</div>;
-};
+country.map((countries) => {
+                            
+                          })
+  
 */

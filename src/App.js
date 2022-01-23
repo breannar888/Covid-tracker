@@ -1,34 +1,18 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import MapChart from "./components/Map";
+import ReactTooltip from "react-tooltip";
+import { useState, useEffect } from "react";
+import "./scss/home.css";
 
 function App() {
-  const url = "https://corona.lmao.ninja/v2/countries?yesterday&sort";
-  const [country, setCountry] = useState(null);
+  const [content, setContent] = useState("");
   useEffect(() => {
-    axios.get(url).then((response) => {
-      setCountry(response.data);
-    });
-  }, [url]);
-  console.log("countries:", country);
-
-return <div> <MapChart /></div> 
+    ReactTooltip.rebuild();
+  }, [content]);
+  return (
+    <div className="home">
+      <ReactTooltip>{content}</ReactTooltip>
+      <MapChart setToolTipContent={setContent} />
+    </div>
+  );
 }
-
 export default App;
-/*
- if (country) {
-    return (
-      <div>
-       
-        {country.map((countries) => (
-          <div key={countries.country}>
-            <p>
-              {countries.country}: {countries.cases}
-            </p>
-          </div>
-        ))}
-      </div>
-    );
-  }
-  return <div>loading...</div>; */
