@@ -5,23 +5,29 @@ import {
   ComposableMap,
   Geographies,
   Geography,
-  Sphere,
-  Graticule,
   ZoomableGroup,
 } from "react-simple-maps";
 import { memo } from "react";
-import "../scss/home.css";
+import { MapState } from "../context/Context";
+import "../scss/map.css";
+import InfoModal from "./InfoModal";
 
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
 const colorScale = scaleLinear()
-  .domain([10000, 2000000])
+  .domain([1, 3000000])
   .range(["#ffeedb", "#ff8800"]);
+
+const mapWidth = 400;
+const mapHeight = 200;
+
 const MapChart = ({ setToolTipContent }) => {
   const url = "https://corona.lmao.ninja/v2/countries?yesterday&sort";
+  const { covidINFO, showINFO, setcovidINFO } = MapState();
+
   const [country, setCountry] = useState(null);
-  console.log(country);
+
   useEffect(() => {
     axios.get(url).then((response) => {
       setCountry(response.data);
@@ -30,17 +36,26 @@ const MapChart = ({ setToolTipContent }) => {
 
   if (country) {
     return (
-      <>
+      <div className="map-container">
+        <h1>Covid Tracker</h1>
         <ComposableMap
           data-tip=""
+          width={mapWidth}
+          height={mapHeight}
           projectionConfig={{
             rotate: [-10, 0, 0],
-            scale: 137,
+            scale: 70,
+          }}
+          style={{
+            backgroundColor: "pink",
           }}
         >
-          <ZoomableGroup>
-            <Sphere stroke="#E4E5E6" strokeWidth={0.5} />
-            <Graticule stroke="#E4E5E6" strokeWidth={0.5} />
+          <ZoomableGroup
+            translateExtent={[
+              [0, -mapHeight],
+              [mapWidth, mapHeight],
+            ]}
+          >
             {country.length > 0 && (
               <Geographies geography={geoUrl}>
                 {({ geographies }) =>
@@ -48,7 +63,7 @@ const MapChart = ({ setToolTipContent }) => {
                     const d = country.find(
                       (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
                     );
-                   
+                   //if (d) null, return "no data"
                     return (
                       <Geography
                         key={geo.rsmKey}
@@ -56,10 +71,21 @@ const MapChart = ({ setToolTipContent }) => {
                         fill={d ? colorScale(d["cases"]) : "#F5F4F6"}
                         onMouseEnter={() => {
                           const { NAME } = geo.properties;
-                          setToolTipContent(`${NAME} - Cases ${d.cases}`);
+                          setToolTipContent(
+                            `${NAME} - Cases ${d.cases.toLocaleString()} - Deaths ${d.deaths.toLocaleString()}`
+                          );
                         }}
                         onMouseLeave={() => {
                           setToolTipContent("");
+                        }}
+                        onClick={() => {
+                          setcovidINFO(d);
+                        }}
+                        style={{
+                          hover: {
+                            fill: "black",
+                            outline: "none",
+                          },
                         }}
                       />
                     );
@@ -69,16 +95,11 @@ const MapChart = ({ setToolTipContent }) => {
             )}
           </ZoomableGroup>
         </ComposableMap>
-      </>
+        <InfoModal />
+      </div>
     );
   }
   return <span>loading...</span>;
 };
 
 export default memo(MapChart);
-/*
-country.map((countries) => {
-                            
-                          })
-  
-*/
