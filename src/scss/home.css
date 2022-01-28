@@ -1,8 +1,35 @@
-.home {
-  background-color: white;
+.app-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
 }
 
 h1 {
   text-align: center;
+}
+
+.info {
+  padding: 3% 3% 0 3%;
+  background-color: #f8f0ab;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
+  grid-column: 1 / 2;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 8;
+  grid-row: 1 / 9;
+}
+
+.map-container {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 2;
+  grid-column: 2 / 4;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 4;
+  grid-row: 1 / 5;
+  background-color: rgba(255, 0, 0, 0.226);
+  border-radius: 5%;
 }
 /*# sourceMappingURL=home.css.map */

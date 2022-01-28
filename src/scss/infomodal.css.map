@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,aAAa,CAAA;EACT,MAAM,EAAE,IAAI;EACZ,MAAM,EAAE,eAAe;EACvB,UAAU,EAAE,MAAM;CACrB",
+    "sources": [
+        "infomodal.scss"
+    ],
+    "names": [],
+    "file": "infomodal.css"
+}

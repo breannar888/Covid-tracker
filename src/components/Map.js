@@ -10,8 +10,11 @@ import {
 import { memo } from "react";
 import { MapState } from "../context/Context";
 import "../scss/map.css";
+import Box from '@mui/material/Box';
 import InfoModal from "./InfoModal";
-
+import { Button } from "@mui/material";
+import SearchBar from "./SearchBar";
+//get map data
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
@@ -19,14 +22,15 @@ const colorScale = scaleLinear()
   .domain([1, 3000000])
   .range(["#ffeedb", "#ff8800"]);
 
-const mapWidth = 400;
-const mapHeight = 200;
+const mapWidth = 550;
+const mapHeight = 220;
 
 const MapChart = ({ setToolTipContent }) => {
   const url = "https://corona.lmao.ninja/v2/countries?yesterday&sort";
-  const { covidINFO, showINFO, setcovidINFO } = MapState();
+  const { setcovidINFO } = MapState();
 
   const [country, setCountry] = useState(null);
+  const [mapData, setmapData] = useState("cases");
 
   useEffect(() => {
     axios.get(url).then((response) => {
@@ -37,65 +41,98 @@ const MapChart = ({ setToolTipContent }) => {
   if (country) {
     return (
       <div className="map-container">
-        <h1>Covid Tracker</h1>
-        <ComposableMap
-          data-tip=""
-          width={mapWidth}
-          height={mapHeight}
-          projectionConfig={{
-            rotate: [-10, 0, 0],
-            scale: 70,
-          }}
-          style={{
-            backgroundColor: "pink",
-          }}
-        >
-          <ZoomableGroup
-            translateExtent={[
-              [0, -mapHeight],
-              [mapWidth, mapHeight],
-            ]}
-          >
-            {country.length > 0 && (
-              <Geographies geography={geoUrl}>
-                {({ geographies }) =>
-                  geographies.map((geo) => {
-                    const d = country.find(
-                      (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
-                    );
-                   //if (d) null, return "no data"
-                    return (
-                      <Geography
-                        key={geo.rsmKey}
-                        geography={geo}
-                        fill={d ? colorScale(d["cases"]) : "#F5F4F6"}
-                        onMouseEnter={() => {
-                          const { NAME } = geo.properties;
-                          setToolTipContent(
-                            `${NAME} - Cases ${d.cases.toLocaleString()} - Deaths ${d.deaths.toLocaleString()}`
-                          );
-                        }}
-                        onMouseLeave={() => {
-                          setToolTipContent("");
-                        }}
-                        onClick={() => {
-                          setcovidINFO(d);
-                        }}
-                        style={{
-                          hover: {
-                            fill: "black",
-                            outline: "none",
-                          },
-                        }}
-                      />
-                    );
-                  })
-                }
-              </Geographies>
-            )}
-          </ZoomableGroup>
-        </ComposableMap>
-        <InfoModal />
+        <div className="map-wrapper">
+          <div className="map">
+          
+            <ComposableMap
+              data-tip=""
+              width={mapWidth}
+              height={mapHeight}
+              projectionConfig={{
+                rotate: [-10, 0, 0],
+                scale: 70,
+              }}
+            >
+              <ZoomableGroup
+                translateExtent={[
+                  [0, -mapHeight],
+                  [mapWidth, mapHeight],
+                ]}
+              >
+                {country.length > 0 && (
+                  <Geographies geography={geoUrl}>
+                    {({ geographies }) =>
+                      geographies.map((geo) => {
+                        const d = country.find(
+                          (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
+                        );
+                        return (
+                          <Geography
+                            key={geo.rsmKey}
+                            geography={geo}
+                            fill={d ? colorScale(d[mapData]) : "#F5F4F6"}
+                            onMouseEnter={() => {
+                              const { NAME } = geo.properties;
+                              if (d) {
+                                setToolTipContent(
+                                  `${NAME}: ${mapData} - ${d[
+                                    mapData
+                                  ].toLocaleString()}`
+                                );
+                              }
+                            }}
+                            onMouseLeave={() => {
+                              setToolTipContent("");
+                            }}
+                            onClick={() => {
+                              setcovidINFO(d);
+                            }}
+                            style={{
+                              hover: {
+                                fill: "black",
+                                outline: "none",
+                              },
+                            }}
+                          />
+                        );
+                      })
+                    }
+                  </Geographies>
+                )}
+              </ZoomableGroup>
+            </ComposableMap>
+          </div>
+          <div className="buttons">
+            <Button
+              onClick={() => {
+                setmapData("cases");
+              }}
+            >
+              Cases
+            </Button>
+            <Button
+              onClick={() => {
+                setmapData("deaths");
+              }}
+            >
+              Deaths
+            </Button>
+            <Button
+              onClick={() => {
+                setmapData("tests");
+              }}
+            >
+              Vaccinations
+            </Button>
+            <Button
+              onClick={() => {
+                setmapData("recovered");
+              }}
+            >
+              Recovered
+            </Button>
+          </div>
+        </div>
       </div>
     );
   }

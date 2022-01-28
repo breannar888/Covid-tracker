@@ -1,6 +1,22 @@
-.home {
-  background-color: rgb(255, 255, 255);
-}h1 {
+.app-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+h1 {
   text-align: center;
 }
-
+.info {
+  padding: 3% 3% 0 3%;
+  background-color: #f8f0ab;
+  grid-column: 1 / 2;
+  grid-row: 1 / 9;
+  
+}
+.map-container {
+  grid-column: 2 / 4;
+  grid-row: 1 / 5;
+  background-color: rgba(255, 0, 0, 0.226);
+  border-radius: 5%;
+}

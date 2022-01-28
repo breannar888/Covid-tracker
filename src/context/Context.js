@@ -4,12 +4,13 @@ const MapContext = createContext();
 
 function MapContextProvider(props) {
   const [covidINFO, setcovidINFO] = useState("");
-  const [showINFO, setshowINFO] = useState(false);
+  const [mapData, setmapData] = useState();
 
   const value = {
     covidINFO,
-    showINFO,
     setcovidINFO,
+    setmapData,
+    mapData,
   };
 
   return (

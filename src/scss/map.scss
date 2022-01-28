@@ -1,3 +1,13 @@
-.map-container{
-margin: 0 20% 0 20%;
+.map {
+  border-radius: 5%;
+  background-color: rgb(0, 192, 134);
+}
+.buttons {
+  background-color: rgb(205, 63, 94);
+  display: flex;
+  justify-content: space-around;
+}
+.map-wrapper {
+  display: grid;
+  grid-auto-rows: minmax(100px, auto);
 }

@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { MapState } from "../context/Context";
+import "../scss/infomodal.css";
 
 const InfoModal = ({}) => {
-  const { covidINFO, showINFO } = MapState();
+  const { covidINFO } = MapState();
   if (covidINFO) {
     return (
       <div className="info-wrapper">
-        Info Modal
+        <h2>{covidINFO.country}</h2>
         <div>
-          Country Flag: <img src={covidINFO.countryInfo.flag} />
+          <img src={covidINFO.countryInfo.flag} alt={covidINFO.country} />
         </div>
-        <div>Country: {covidINFO.country}</div>
-        <div>Cases: {covidINFO.cases}</div>
-        <div>Deaths: {covidINFO.deaths}</div>
-        <div>Recovered: {covidINFO.recovered}</div>
-        <div>Population % infected: </div>
-        <div>Tests: {covidINFO.tests}</div>
-        <div>Cases Today: {covidINFO.todayCases}</div>
-        <div>Deaths Today: {covidINFO.todayDeaths}</div>
-        <div>Recovered Today: {covidINFO.todayRecovered}</div>
+        <div>Cases: {covidINFO.cases.toLocaleString()}</div>
+        <div>Deaths: {covidINFO.deaths.toLocaleString()}</div>
+        <div>Recovered: {covidINFO.recovered.toLocaleString()}</div>
+        <div>Tests: {covidINFO.tests.toLocaleString()}</div>
+        <div>Cases Today: {covidINFO.todayCases.toLocaleString()}</div>
+        <div>Deaths Today: {covidINFO.todayDeaths.toLocaleString()}</div>
+        <div>Recovered Today: {covidINFO.todayRecovered.toLocaleString()}</div>
       </div>
     );
   }
-  return (<div>No Data Available</div>)
+  return <div>No Data</div>;
 };
 
 export default InfoModal;

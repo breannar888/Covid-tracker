@@ -1,4 +1,20 @@
-.map-container {
-  margin: 0 20% 0 20%;
+.map {
+  border-radius: 5%;
+  background-color: #00c086;
+}
+
+.buttons {
+  background-color: #cd3f5e;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.map-wrapper {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-rows: minmax(100px, auto);
 }
 /*# sourceMappingURL=map.css.map */
