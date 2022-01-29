@@ -10,7 +10,7 @@ import {
 import { memo } from "react";
 import { MapState } from "../context/Context";
 import "../scss/map.css";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import InfoModal from "./InfoModal";
 import { Button } from "@mui/material";
 import SearchBar from "./SearchBar";
@@ -41,9 +41,9 @@ const MapChart = ({ setToolTipContent }) => {
   if (country) {
     return (
       <div className="map-container">
+        <h1>Covid Tracker</h1>
         <div className="map-wrapper">
           <div className="map">
-          
             <ComposableMap
               data-tip=""
               width={mapWidth}

@@ -16,7 +16,6 @@ function App() {
   return (
     <>
       <MapContextProvider>
-        <h1>Covid Tracker</h1>
         <div className="app-container">
           <div className="info">
             <div className="search-bar">
@@ -28,7 +27,9 @@ function App() {
             <ReactTooltip>{content}</ReactTooltip>
             <MapChart setToolTipContent={setContent} />
           </div>
-          <div className="covid-tips"><CovidTips/></div>
+          <div className="covid-tips">
+            <CovidTips />
+          </div>
         </div>
       </MapContextProvider>
     </>

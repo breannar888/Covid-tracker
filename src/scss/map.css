@@ -4,7 +4,7 @@
 }
 
 .buttons {
-  background-color: #cd3f5e;
+  background-color: #fcc8d3;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -15,6 +15,6 @@
 .map-wrapper {
   display: -ms-grid;
   display: grid;
-  grid-auto-rows: minmax(100px, auto);
+  grid-auto-rows: minmax(50px, auto);
 }
 /*# sourceMappingURL=map.css.map */
