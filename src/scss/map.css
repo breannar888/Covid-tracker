@@ -1,10 +1,9 @@
 .map {
-  border-radius: 5%;
-  background-color: #00c086;
+  border: 1px solid rgba(128, 128, 128, 0.432);
 }
 
 .buttons {
-  background-color: #fcc8d3;
+  margin-top: 2%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -12,9 +11,17 @@
       justify-content: space-around;
 }
 
-.map-wrapper {
+.worldwide-stats {
   display: -ms-grid;
   display: grid;
-  grid-auto-rows: minmax(50px, auto);
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  text-align: center;
+  margin-top: 2%;
+}
+
+.map-wrapper {
+  padding: 1%;
 }
 /*# sourceMappingURL=map.css.map */

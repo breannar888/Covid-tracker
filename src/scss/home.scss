@@ -3,19 +3,30 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   grid-auto-rows: minmax(100px, auto);
+  background-color: #f3f3f3;
+  padding: 1%;
 }
 h1 {
   text-align: center;
 }
 .info {
   padding: 3% 3% 0 3%;
-  background-color: #f8f0ab;
+  background-color: white;
   grid-column: 1 / 2;
-  grid-row: 1 / 9;
-  
+  grid-row: 1 / 7;
+  height: 100vh;
+  border: 2px solid rgba(185, 185, 185, 0.432);
 }
 .map-container {
+  background-color: white;
+  border: 2px solid rgba(185, 185, 185, 0.432);
   grid-column: 2 / 4;
   grid-row: 1 / 5;
   border-radius: 5%;
+  padding: 1%;
+}
+.covid-tips {
+  background-color: white;
+  border-radius: 10%;
+  border: 2px solid rgba(185, 185, 185, 0.432);
 }

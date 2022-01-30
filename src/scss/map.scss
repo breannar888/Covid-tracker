@@ -1,13 +1,18 @@
 .map {
-  border-radius: 5%;
-  background-color: rgb(0, 192, 134);
+  border: 1px solid rgba(128, 128, 128, 0.432);
 }
 .buttons {
-  background-color: rgb(252, 200, 211);
+  margin-top: 2%;
   display: flex;
   justify-content: space-around;
 }
-.map-wrapper {
+.worldwide-stats {
   display: grid;
-  grid-auto-rows: minmax(50px, auto);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  text-align: center;
+  margin-top: 2%;
+}
+.map-wrapper {
+  padding: 1%;
 }
