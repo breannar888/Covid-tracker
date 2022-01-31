@@ -6,13 +6,6 @@
   display: flex;
   justify-content: space-around;
 }
-.worldwide-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  text-align: center;
-  margin-top: 2%;
-}
 .map-wrapper {
   padding: 1%;
 }

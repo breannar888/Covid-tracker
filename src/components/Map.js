@@ -8,36 +8,39 @@ import {
   ZoomableGroup,
 } from "react-simple-maps";
 import { memo } from "react";
-import { MapState } from "../context/Context";
 import "../scss/map.css";
-import { Button, ButtonBase } from '@mui/material';
-import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Typography } from "@mui/material";
 
 //get map data
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
+const url = "https://corona.lmao.ninja/v2/countries?yesterday&sort";
 const colorScale = scaleLinear()
   .domain([1, 3000000])
   .range(["#ffeedb", "#ff8800"]);
-
+//set map width and height
 const mapWidth = 550;
 const mapHeight = 210;
 
-const MapChart = ({ setToolTipContent }) => {
-  const url = "https://corona.lmao.ninja/v2/countries?yesterday&sort";
-  const { setcovidINFO } = MapState();
-
+const MapChart = ({ setToolTipContent, setStats }) => {
   const [country, setCountry] = useState(null);
   const [mapData, setmapData] = useState("cases");
+  console.log(country);
 
-  //get covid data from api
+  //get covid country data from api
   useEffect(() => {
+    //isMounted boolean flag to prevent memory leaks
+    let isMounted = true;
     axios.get(url).then((response) => {
-      setCountry(response.data);
+      if (isMounted) {
+        setCountry(response.data);
+      }
     });
+    return () => {
+      isMounted = false;
+    };
   }, [url]);
 
   //style for mui components
@@ -47,30 +50,11 @@ const MapChart = ({ setToolTipContent }) => {
       color: "white",
       background: "black",
     },
-    worldwideStats: {
-      borderRadius: "5%",
-      border: "1px solid rgba(128, 128, 128, 0.432)",
-      borderTop: "0px",
-      "& p": {
-        borderTop: "10px solid red",
-        borderRadius: 8,
-        paddingBottom: 3,
-        paddingTop: 10,
-        fontSize: 18,
-      },
-      "& div": {
-        color: "grey",
-        paddingTop: 10,
-        marginBottom: 25,
-        fontSize: 25,
-      },
-    },
   });
   const classes = useStyles();
   if (country) {
     return (
       <div className="map-wrapper">
-        <h1>Covid Tracker</h1>
         <div className="map">
           <ComposableMap
             data-tip=""
@@ -113,7 +97,7 @@ const MapChart = ({ setToolTipContent }) => {
                             setToolTipContent("");
                           }}
                           onClick={() => {
-                            setcovidINFO(d);
+                            setStats(d);
                           }}
                           style={{
                             hover: {
@@ -163,23 +147,6 @@ const MapChart = ({ setToolTipContent }) => {
           >
             Recovered
           </Button>
-        </div>
-        <div className="worldwide-stats">
-          <Box className={classes.worldwideStats}>
-            <Typography>Worldwide Cases</Typography>
-            <div>37mil+</div>
-            <span>140mil total</span>
-          </Box>
-          <Box className={classes.worldwideStats}>
-            <Typography>Worldwide Deaths</Typography>
-            <div>hihi</div>
-            <span>140mil total</span>
-          </Box>
-          <Box className={classes.worldwideStats}>
-            <Typography>Worldwide Vaccinations</Typography>
-            <div>hihi</div>
-            <span>140mil total</span>
-          </Box>
         </div>
       </div>
     );

@@ -1,0 +1,10 @@
+.worldwide-stats {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  text-align: center;
+  margin: 2% 0 2% 0;
+}
+/*# sourceMappingURL=infobox.css.map */

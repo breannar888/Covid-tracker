@@ -1,0 +1,7 @@
+.worldwide-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    text-align: center;
+    margin: 2% 0 2% 0;
+  }

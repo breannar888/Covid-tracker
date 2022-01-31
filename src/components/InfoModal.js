@@ -1,57 +1,39 @@
 import React from "react";
-import { MapState } from "../context/Context";
 import "../scss/infomodal.css";
 
-const InfoModal = ({}) => {
-  const { covidINFO } = MapState();
-  if (covidINFO) {
+const InfoModal = ({stats}) => {
+  if (stats) {
     return (
       <div className="info-wrapper">
-        <h2>{covidINFO.country}</h2>
-        <img src={covidINFO.countryInfo.flag} alt={covidINFO.country} />
+        <h2>{stats.country}</h2>
+        <img src={stats.countryInfo.flag} alt={stats.country}/>
         <div className="data">
-          <h4>Cases:</h4> <p>{covidINFO.cases.toLocaleString()}</p>
+          <h4>Cases:</h4> <p>{stats.cases}</p>
         </div>
         <div className="data">
-          <h4>Deaths:</h4> <p>{covidINFO.deaths.toLocaleString()}<p/></p>
+          <h4>Deaths:</h4> <p>{stats.deaths}</p>
         </div>
         <div className="data">
-          <h4>Recovered:</h4> <p>{covidINFO.recovered.toLocaleString()}</p>
+          <h4>Recovered:</h4> <p>{stats.recovered}</p>
         </div>
         <div className="data">
-          <h4>Tests:</h4> <p>{covidINFO.tests.toLocaleString()}</p>
+          <h4>Tests:</h4> <p>{stats.tests}</p>
         </div>
         <div className="data">
-          <h4>Cases Today:</h4> <p>{covidINFO.todayCases.toLocaleString()}</p>
+          <h4>Cases Today:</h4> <p>{stats.todayCases}</p>
         </div>
         <div className="data">
-          <h4>Deaths Today:</h4> <p>{covidINFO.todayDeaths.toLocaleString()}</p>
+          <h4>Deaths Today:</h4> <p>{stats.todayDeaths}</p>
         </div>
         <div className="data">
-          <h4>Recovered Today:</h4> <p>{covidINFO.todayRecovered.toLocaleString()}</p>
+          <h4>Recovered Today:</h4>
+          <p>{stats.todayRecovered}</p>
         </div>
       </div>
     );
   }
-  return <div>No Data</div>;
+  return (<div>No Data</div>);
+    
 };
 
 export default InfoModal;
-/* <div>
-          <p>Deaths:</p> {covidINFO.deaths.toLocaleString()}
-        </div>
-        <div>
-          <p>Recovered:</p> {covidINFO.recovered.toLocaleString()}
-        </div>
-        <div>
-          <p>Tests:</p> {covidINFO.tests.toLocaleString()}
-        </div>
-        <div>
-          <p>Cases Today:</p> {covidINFO.todayCases.toLocaleString()}
-        </div>
-        <div>
-          <p>Deaths Today:</p> {covidINFO.todayDeaths.toLocaleString()}
-        </div>
-        <div>
-          <p>Recovered Today:</p> {covidINFO.todayRecovered.toLocaleString()}
-        </div> */

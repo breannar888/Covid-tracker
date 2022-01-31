@@ -1,5 +1,7 @@
 .info-wrapper{
     text-align: center;
+    overflow-y: scroll;
+    height: 100vh;
 }
 .info-wrapper div:nth-of-type(odd) {
     background-color: rgba(128, 128, 128, 0.205);
@@ -12,4 +14,8 @@
 img {
     width: 200px;
     height: 120px;
+    border: 1px solid rgb(184, 184, 184);
+}
+.no-data {
+    text-align: center;
 }

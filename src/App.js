@@ -1,37 +1,40 @@
 import MapChart from "./components/Map";
 import ReactTooltip from "react-tooltip";
 import { useState, useEffect } from "react";
-import MapContextProvider from "./context/Context";
 import InfoModal from "./components/InfoModal";
 import SearchBar from "./components/SearchBar";
 import "./scss/home.css";
 import CovidTips from "./components/CovidTips";
+import InfoBox from "./components/InfoBox";
 
 function App() {
   const [content, setContent] = useState("");
+  const [stats, setStats] = useState("");
   //use state for covid info here
   useEffect(() => {
     ReactTooltip.rebuild();
   }, [content]);
   return (
     <>
-      <MapContextProvider>
-        <div className="app-container">
-          <div className="info">
-            <div className="search-bar">
-              <SearchBar />
-            </div>
-            <InfoModal />
+      <div className="app-container">
+        <div className="info">
+          <div className="search-bar">
+            <SearchBar />
           </div>
-          <div className="map-container">
-            <ReactTooltip>{content}</ReactTooltip>
-            <MapChart setToolTipContent={setContent} />
-          </div>
-          <div className="covid-tips">
-            <CovidTips />
-          </div>
+          <InfoModal stats={stats}/>
         </div>
-      </MapContextProvider>
+        <div className="map-container">
+          <ReactTooltip>{content}</ReactTooltip>
+          <MapChart setToolTipContent={setContent} setStats={setStats}/>
+        </div>
+        <div className="info-box">
+        <h1>Covid Tracker</h1>
+          <InfoBox/>
+        </div>
+        <div className="covid-tips">
+          <CovidTips />
+        </div>
+      </div>
     </>
   );
 }

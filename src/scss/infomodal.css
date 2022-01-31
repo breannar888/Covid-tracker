@@ -1,5 +1,7 @@
 .info-wrapper {
   text-align: center;
+  overflow-y: scroll;
+  height: 100vh;
 }
 
 .info-wrapper div:nth-of-type(odd) {
@@ -19,5 +21,10 @@
 img {
   width: 200px;
   height: 120px;
+  border: 1px solid #b8b8b8;
+}
+
+.no-data {
+  text-align: center;
 }
 /*# sourceMappingURL=infomodal.css.map */
