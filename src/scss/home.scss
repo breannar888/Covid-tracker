@@ -16,6 +16,7 @@ h1 {
   grid-row: 1 / 7;
   height: 100vh;
   border: 2px solid rgba(185, 185, 185, 0.432);
+  overflow-y: scroll;
 }
 .map-container {
   background-color: white;

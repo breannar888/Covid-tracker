@@ -12,7 +12,7 @@ import "../scss/map.css";
 import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-//get map data
+//get map geographical data
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
@@ -20,6 +20,7 @@ const url = "https://corona.lmao.ninja/v2/countries?yesterday&sort";
 const colorScale = scaleLinear()
   .domain([1, 3000000])
   .range(["#ffeedb", "#ff8800"]);
+
 //set map width and height
 const mapWidth = 550;
 const mapHeight = 210;
@@ -27,7 +28,6 @@ const mapHeight = 210;
 const MapChart = ({ setToolTipContent, setStats }) => {
   const [country, setCountry] = useState(null);
   const [mapData, setmapData] = useState("cases");
-  console.log(country);
 
   //get covid country data from api
   useEffect(() => {
@@ -43,15 +43,22 @@ const MapChart = ({ setToolTipContent, setStats }) => {
     };
   }, [url]);
 
-  //style for mui components
+  //style for mui buttons
   const useStyles = makeStyles({
-    //!button styles not rendering
-    btnsMap: {
-      color: "white",
-      background: "black",
+    mapBtns: {
+      color: "white!important",
+      backgroundColor: "black!important",
+      cursor: "pointer",
+      "&:hover": {
+        backgroundColor: "#ff8800!important",
+      },
+      "&:focus": {
+        backgroundColor: "#ff8800!important",
+      }
     },
   });
   const classes = useStyles();
+
   if (country) {
     return (
       <div className="map-wrapper">
@@ -116,7 +123,7 @@ const MapChart = ({ setToolTipContent, setStats }) => {
         </div>
         <div className="buttons">
           <Button
-            className={classes.btnsMap}
+            className={classes.mapBtns}
             onClick={() => {
               setmapData("cases");
             }}
@@ -124,7 +131,7 @@ const MapChart = ({ setToolTipContent, setStats }) => {
             Cases
           </Button>
           <Button
-            className={classes.btnsMap}
+            className={classes.mapBtns}
             onClick={() => {
               setmapData("deaths");
             }}
@@ -132,15 +139,15 @@ const MapChart = ({ setToolTipContent, setStats }) => {
             Deaths
           </Button>
           <Button
-            className={classes.btnsMap}
+            className={classes.mapBtns}
             onClick={() => {
               setmapData("tests");
             }}
           >
-            Vaccinations
+            Tests
           </Button>
           <Button
-            className={classes.btnsMap}
+            className={classes.mapBtns}
             onClick={() => {
               setmapData("recovered");
             }}

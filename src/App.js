@@ -2,34 +2,34 @@ import MapChart from "./components/Map";
 import ReactTooltip from "react-tooltip";
 import { useState, useEffect } from "react";
 import InfoModal from "./components/InfoModal";
-import SearchBar from "./components/SearchBar";
 import "./scss/home.css";
 import CovidTips from "./components/CovidTips";
+import axios from "axios";
 import InfoBox from "./components/InfoBox";
 
 function App() {
+  //use state for tooltip content
   const [content, setContent] = useState("");
+  //use state for api data
   const [stats, setStats] = useState("");
-  //use state for covid info here
+
   useEffect(() => {
     ReactTooltip.rebuild();
   }, [content]);
+
   return (
     <>
       <div className="app-container">
         <div className="info">
-          <div className="search-bar">
-            <SearchBar />
-          </div>
-          <InfoModal stats={stats}/>
+          <h1>COVID-19 Tracker</h1>
+          <InfoModal stats={stats} />
         </div>
         <div className="map-container">
           <ReactTooltip>{content}</ReactTooltip>
-          <MapChart setToolTipContent={setContent} setStats={setStats}/>
+          <MapChart setToolTipContent={setContent} setStats={setStats} />
         </div>
         <div className="info-box">
-        <h1>Covid Tracker</h1>
-          <InfoBox/>
+          <InfoBox />
         </div>
         <div className="covid-tips">
           <CovidTips />
