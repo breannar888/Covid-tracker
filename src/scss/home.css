@@ -50,6 +50,7 @@ h1 {
   -ms-grid-row: 4;
   -ms-grid-row-span: 1;
   grid-row: 4 / 5;
+  width: 100%;
 }
 
 .info-box {

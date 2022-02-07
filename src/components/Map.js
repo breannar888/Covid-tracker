@@ -16,7 +16,6 @@ import { makeStyles } from "@mui/styles";
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
-const url = "https://corona.lmao.ninja/v2/countries?yesterday&sort";
 const colorScale = scaleLinear()
   .domain([1, 3000000])
   .range(["#ffeedb", "#ff8800"]);
@@ -25,23 +24,9 @@ const colorScale = scaleLinear()
 const mapWidth = 550;
 const mapHeight = 210;
 
-const MapChart = ({ setToolTipContent, setStats }) => {
-  const [country, setCountry] = useState(null);
+const MapChart = ({ setToolTipContent, setStats, country }) => {
+  console.log(country);
   const [mapData, setmapData] = useState("cases");
-
-  //get covid country data from api
-  useEffect(() => {
-    //isMounted boolean flag to prevent memory leaks
-    let isMounted = true;
-    axios.get(url).then((response) => {
-      if (isMounted) {
-        setCountry(response.data);
-      }
-    });
-    return () => {
-      isMounted = false;
-    };
-  }, [url]);
 
   //style for mui buttons
   const useStyles = makeStyles({
@@ -49,12 +34,13 @@ const MapChart = ({ setToolTipContent, setStats }) => {
       color: "white!important",
       backgroundColor: "black!important",
       cursor: "pointer",
+
       "&:hover": {
         backgroundColor: "#ff8800!important",
       },
       "&:focus": {
         backgroundColor: "#ff8800!important",
-      }
+      },
     },
   });
   const classes = useStyles();
