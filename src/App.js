@@ -15,24 +15,15 @@ function App() {
 
   //get covid country data from api
   useEffect(() => {
-    //isMounted boolean flag to catch memory leaks
-    let isMounted = true;
     axios
       .get(url)
       .then((response) => {
-        if (isMounted) {
-          setCountry(response.data);
-          console.log(isMounted);
-        }
-        return () => {
-          isMounted = false;
-          console.log(isMounted);
-        };
+        setCountry(response.data);
       })
       .catch((error) => {
         console.log(error.response);
       });
-  });
+  }, [url]);
 
   //use state for tooltip content
   const [content, setContent] = useState("");
@@ -48,6 +39,11 @@ function App() {
       <div className="app-container">
         <div className="info">
           <h1>COVID-19 Tracker</h1>
+          <DropdownCountry
+            country={country}
+            setStats={setStats}
+            stats={stats}
+          /> 
           <InfoModal stats={stats} />
         </div>
         <div className="map-container">
@@ -69,8 +65,3 @@ function App() {
   );
 }
 export default App;
-/*<DropdownCountry
-            country={country}
-            setStats={setStats}
-            stats={stats}
-          /> */
