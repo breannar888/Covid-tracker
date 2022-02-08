@@ -43,8 +43,11 @@ function App() {
             country={country}
             setStats={setStats}
             stats={stats}
-          /> 
+          />
           <InfoModal stats={stats} />
+        </div>
+        <div className="covid-tips">
+          <CovidTips />
         </div>
         <div className="map-container">
           <ReactTooltip>{content}</ReactTooltip>
@@ -56,9 +59,6 @@ function App() {
         </div>
         <div className="info-box">
           <InfoBox />
-        </div>
-        <div className="covid-tips">
-          <CovidTips />
         </div>
       </div>
     </>

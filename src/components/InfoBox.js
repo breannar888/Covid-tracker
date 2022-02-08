@@ -57,17 +57,17 @@ const InfoBox = ({}) => {
     return (
       <div className="worldwide-stats">
         <Box className={classes.worldwideStats}>
-          <Typography>Worldwide Cases</Typography>
+          <Typography sx={{fontFamily: "'Lora', serif"}}>Worldwide Cases</Typography>
           <div>{formatStat(worldwidedata.todayCases)}</div>
           <span>{worldwidedata.cases.toLocaleString()}</span>
         </Box>
         <Box className={classes.worldwideStats}>
-          <Typography>Worldwide Deaths</Typography>
+          <Typography sx={{fontFamily: "'Lora', serif"}}>Worldwide Deaths</Typography>
           <div>{formatStat(worldwidedata.todayDeaths)}</div>
           <span>{worldwidedata.deaths.toLocaleString()}</span>
         </Box>
         <Box className={classes.worldwideStats}>
-          <Typography>Worldwide Recovered</Typography>
+          <Typography sx={{fontFamily: "'Lora', serif"}}>Worldwide Recovered</Typography>
           <div>{formatStat(worldwidedata.todayRecovered)}</div>
           <span>{worldwidedata.recovered.toLocaleString()}</span>
         </Box>

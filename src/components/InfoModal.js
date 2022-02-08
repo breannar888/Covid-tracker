@@ -53,8 +53,36 @@ const InfoModal = ({ stats }) => {
   }
   return (
     <div className="svg-container">
-      <h2>No Data</h2>
+      <div className="nodata-container">
+        <h2>No Data</h2>
+        <div>Click on a country to display their current COVID-19 stats.</div>
+      </div>
+
       <motion.svg
+        className="svg-wrapper"
+        variants={flag}
+        initial="hidden"
+        animate="active"
+        width="150"
+        height="250"
+        viewBox="0 0 255 320"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="255" height="320" fill="white" />
+        <motion.path
+          d="M35 57.3694V175.182C35 175.182 114.821 162.092 130.5 175.182C146.179 188.272 226 175.182 226 175.182V57.3694C226 57.3694 130.5 73.9504 130.5 57.3694C130.5 40.7883 35 57.3694 35 57.3694Z"
+          fill="#A5AAAD"
+          stroke="black"
+        />
+        <motion.path d="M31.5008 62.4992L31.8739 288.5" stroke="black" />
+      </motion.svg>
+    </div>
+  );
+};
+
+export default InfoModal;
+/*<motion.svg
         className="svg-wrapper"
         variants={flag}
         initial="hidden"
@@ -79,9 +107,4 @@ const InfoModal = ({ stats }) => {
           stroke="black"
           stroke-linecap="square"
         />
-      </motion.svg>
-    </div>
-  );
-};
-
-export default InfoModal;
+      </motion.svg> */
