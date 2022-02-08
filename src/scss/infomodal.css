@@ -25,4 +25,17 @@ img {
 .no-data {
   text-align: center;
 }
+
+.svg-wrapper {
+  display: block;
+  margin: auto;
+}
+
+.svg-container {
+  margin-top: 10%;
+}
+
+h2 {
+  text-align: center;
+}
 /*# sourceMappingURL=infomodal.css.map */
