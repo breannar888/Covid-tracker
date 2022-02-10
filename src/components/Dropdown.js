@@ -14,13 +14,13 @@ function DropdownCountry({ stats, setStats, country }) {
   if (stats) {
     return (
       <div>
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <FormControl sx={{ m: 1, minWidth: 120, maxWidth: 150, }}>
           <InputLabel id="demo-simple-select-label">Country</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label="Country"
-            value={stats.country}
+            value={stats}
             onChange={handleChange}
           >
             {country.map((countries) => (

@@ -38,12 +38,14 @@ function App() {
     <>
       <div className="app-container">
         <div className="info">
-          <h1>COVID-19 Tracker</h1>
-          <DropdownCountry
-            country={country}
-            setStats={setStats}
-            stats={stats}
-          />
+          <div className="info-header">
+            <h1>COVID-19 Tracker</h1>
+            <DropdownCountry
+              country={country}
+              setStats={setStats}
+              stats={stats}
+            />
+          </div>
           <InfoModal stats={stats} />
         </div>
         <div className="covid-tips">
