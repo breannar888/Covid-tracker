@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,MAAM,CAAC;EACH,OAAO,EAAE,EAAE;EACX,gBAAgB,EAAE,OAAO;EACzB,aAAa,EAAE,EAAE;CACpB;;AACD,AAAA,EAAE,CAAC;EACC,UAAU,EAAE,MAAM;CACrB",
-    "sources": [
-        "covidtips.scss"
-    ],
-    "names": [],
-    "file": "covidtips.css"
-}
