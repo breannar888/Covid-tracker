@@ -7,7 +7,7 @@ import numeral from "numeral";
 
 import "../scss/infobox.css";
 
-const worldwide = "https://corona.lmao.ninja/v2/all?yesterday";
+const worldwide = "https://disease.sh/v3/covid-19/all?yesterday=yesterday";
 
 const InfoBox = ({}) => {
   const [worldwidedata, setWorldwidedata] = useState(null);
@@ -57,17 +57,23 @@ const InfoBox = ({}) => {
     return (
       <div className="worldwide-stats">
         <Box className={classes.worldwideStats}>
-          <Typography sx={{fontFamily: "'Lora', serif"}}>Worldwide Cases Today</Typography>
+          <Typography sx={{ fontFamily: "'Lora', serif" }}>
+            Worldwide Cases Today
+          </Typography>
           <div>{formatStat(worldwidedata.todayCases)}</div>
           <span>{worldwidedata.cases.toLocaleString()}</span>
         </Box>
         <Box className={classes.worldwideStats}>
-          <Typography sx={{fontFamily: "'Lora', serif"}}>Worldwide Deaths Today</Typography>
+          <Typography sx={{ fontFamily: "'Lora', serif" }}>
+            Worldwide Deaths Today
+          </Typography>
           <div>{formatStat(worldwidedata.todayDeaths)}</div>
           <span>{worldwidedata.deaths.toLocaleString()}</span>
         </Box>
         <Box className={classes.worldwideStats}>
-          <Typography sx={{fontFamily: "'Lora', serif"}}>Worldwide Recovered Today</Typography>
+          <Typography sx={{ fontFamily: "'Lora', serif" }}>
+            Worldwide Recovered Today
+          </Typography>
           <div>{formatStat(worldwidedata.todayRecovered)}</div>
           <span>{worldwidedata.recovered.toLocaleString()}</span>
         </Box>

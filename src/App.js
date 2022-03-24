@@ -10,7 +10,7 @@ import axios from "axios";
 
 function App() {
   //get country api
-  const url = "https://corona.lmao.ninja/v2/countries?yesterday&sort";
+  const url = "https://disease.sh/v3/covid-19/countries?yesterday=yesterday";
   const [country, setCountry] = useState(null);
 
   //get covid country data from api
